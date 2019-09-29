@@ -4,11 +4,16 @@ class Game {
         this.intervalId = null
         this.bg = new Background(this.ctx)
         this.live = 50
+        this.enemiesKill = 0
+        this.roundEnemisKills = 0
         this.coins = 0
         this.road = new Road(this.ctx) 
         this.towers = [new Tower(this.ctx, 450, 250)]
-        this.enemies = [new Enemies(ctx, this.road.x, this.road.y)]
+        this.enemies = []
+        this.waves = new Waves(this.ctx)
         this.count = 0
+
+        // new Enemies(ctx, this.road.x, this.road.y)
     }
 
     start(){
@@ -20,10 +25,9 @@ class Game {
             this._checklife()
             this._checkDamage()
             this._clearEnemies()
+            this._addEnemies()
 
-            // if(this.count++ % 500 === 499){
-            //     this.enemies.push(new Enemies(this.ctx, this.road.x, this.road.y))
-            // }
+            
 
         }, 1000/60)
     }
@@ -43,6 +47,23 @@ class Game {
         this.enemies.forEach(e => e.move())
     }
 
+    // enemies
+
+    _addEnemies(){
+        if(this.count++ % this.waves.delayTime === 0 && (this.roundEnemisKills + this.enemies.length) < this.waves.numEnemies[this.waves.round]){
+                this.enemies.push(new Enemies(this.ctx, this.road.x, this.road.y))
+        }
+        
+        if (this.roundEnemisKills === this.waves.numEnemies[this.waves.round]){
+            setTimeout(() => {
+                this.roundEnemisKills = 0
+                this.waves.move()
+                console.log(this.waves.round)
+            }, this.waves.delayFinalWaves)
+        }
+        
+    }
+
     _enemyEnd(){
         this.enemies.forEach(e => {
             if (e.isEnd()){
@@ -56,7 +77,10 @@ class Game {
         this.enemies.forEach(e => {
             e.checkDamage(this.towers[0])
             if (e.isDeath()){
+                this.roundEnemisKills++
+                this.enemiesKill++
                 this.coins += e.value
+                console.log(this.roundEnemisKills)
                 console.log(this.coins)
             }
         })
@@ -67,7 +91,7 @@ class Game {
         this.enemies = this.enemies.filter(e => !e.isDeath())
     }
 
-    
+    //Player
 
     _checklife(){
         if(this.live <= 0){
@@ -86,4 +110,5 @@ class Game {
          this.ctx.canvas.height / 2
         );
     }
+    
 }
