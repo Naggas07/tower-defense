@@ -1,0 +1,13 @@
+div {
+    display: flex;
+    justify-content: center;
+}
+
+h1 {
+    font-size: 2rem;
+    text-align: center;
+}
+
+#game{
+    border: 1px black dashed
+}
