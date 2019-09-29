@@ -6,6 +6,7 @@ class Game {
         this.live = 50
         this.coins = 0
         this.road = new Road(this.ctx) 
+        this.towers = [new Tower(this.ctx, 450, 250)]
         this.enemies = [new Enemies(ctx, this.road.x, this.road.y)]
         this.count = 0
     }
@@ -17,11 +18,12 @@ class Game {
             this._move()
             this._enemyEnd()
             this._checklife()
+            this._checkDamage()
             this._clearEnemies()
 
-            if(this.count++ % 60 === 59){
-                this.enemies.push(new Enemies(this.ctx, this.road.x, this.road.y))
-            }
+            // if(this.count++ % 500 === 499){
+            //     this.enemies.push(new Enemies(this.ctx, this.road.x, this.road.y))
+            // }
 
         }, 1000/60)
     }
@@ -33,6 +35,7 @@ class Game {
     _draw(){
         this.bg.draw()
         this.road.draw()
+        this.towers.forEach(t => t.draw())
         this.enemies.forEach(e => e.draw())
     }
 
@@ -49,9 +52,22 @@ class Game {
         })
     }
 
+    _checkDamage(){
+        this.enemies.forEach(e => {
+            e.checkDamage(this.towers[0])
+            if (e.isDeath()){
+                this.coins += e.value
+                console.log(this.coins)
+            }
+        })
+    }
+
     _clearEnemies(){
         this.enemies = this.enemies.filter(e => !e.isEnd())
+        this.enemies = this.enemies.filter(e => !e.isDeath())
     }
+
+    
 
     _checklife(){
         if(this.live <= 0){
