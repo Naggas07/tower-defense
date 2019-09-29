@@ -7,6 +7,7 @@ class Game {
         this.coins = 0
         this.road = new Road(this.ctx) 
         this.enemies = [new Enemies(ctx, this.road.x, this.road.y)]
+        this.count = 0
     }
 
     start(){
@@ -15,7 +16,13 @@ class Game {
             this._draw()
             this._move()
             this._enemyEnd()
+            this._checklife()
             this._clearEnemies()
+
+            if(this.count++ % 60 === 59){
+                this.enemies.push(new Enemies(this.ctx, this.road.x, this.road.y))
+            }
+
         }, 1000/60)
     }
 
@@ -36,13 +43,31 @@ class Game {
     _enemyEnd(){
         this.enemies.forEach(e => {
             if (e.isEnd()){
-                console.log("Enemy is end")
-                return true
+                this.live -= e.damage
+                console.log(`You lose a life. You have only ${this.live}`)
             }
         })
     }
 
     _clearEnemies(){
         this.enemies = this.enemies.filter(e => !e.isEnd())
+    }
+
+    _checklife(){
+        if(this.live <= 0){
+            this._gameOver()
+        } 
+    }
+
+    _gameOver(){
+        clearInterval(this.intervalId)
+
+        this.ctx.font = "40px Comic Sans MS";
+        this.ctx.textAlign = "center";
+        this.ctx.fillText(
+            "GAME OVER",
+         this.ctx.canvas.width / 2,
+         this.ctx.canvas.height / 2
+        );
     }
 }

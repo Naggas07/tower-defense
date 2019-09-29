@@ -1,6 +1,7 @@
 class Enemies {
     constructor(ctx,x,y){
         this.ctx = ctx 
+        this.type = null
         this.x = x
         this.y = y + (Math.random() * 70)
         this.w = 20
@@ -8,6 +9,8 @@ class Enemies {
         this.vx = 0.3
         this.vy = 0
         this.live = 100
+        this.value = 5
+        this.damage = 1
     }
 
     draw(){
