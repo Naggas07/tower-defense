@@ -6,12 +6,13 @@ class Game {
         this.live = 50
         this.enemiesKill = 0
         this.roundEnemisKills = 0
-        this.coins = 0
+        this.coins = new Coins(this.ctx)
         this.road = new Road(this.ctx) 
         this.towers = [new Tower(this.ctx, 450, 250)]
         this.enemies = []
         this.waves = new Waves(this.ctx)
         this.count = 0
+        this.enemiesPassRound = 0
 
         // new Enemies(ctx, this.road.x, this.road.y)
     }
@@ -23,6 +24,7 @@ class Game {
             this._move()
             this._enemyEnd()
             this._checklife()
+            this._checkWaves()
             this._checkDamage()
             this._clearEnemies()
             this._addEnemies()
@@ -41,24 +43,30 @@ class Game {
         this.road.draw()
         this.towers.forEach(t => t.draw())
         this.enemies.forEach(e => e.draw())
+        this.coins.draw()
+        this._drawInterface()
     }
 
     _move(){
         this.enemies.forEach(e => e.move())
     }
 
+    //towers
+
+    
+
     // enemies
 
     _addEnemies(){
-        if(this.count++ % this.waves.delayTime === 0 && (this.roundEnemisKills + this.enemies.length) < this.waves.numEnemies[this.waves.round]){
+        if(this.count++ % this.waves.delayTime === 0 && (this.roundEnemisKills + this.enemies.length + this.enemiesPassRound) < this.waves.numEnemies[this.waves.round]){
                 this.enemies.push(new Enemies(this.ctx, this.road.x, this.road.y))
         }
         
         if (this.roundEnemisKills === this.waves.numEnemies[this.waves.round]){
             setTimeout(() => {
                 this.roundEnemisKills = 0
+                this.enemiesPassRound = 0
                 this.waves.move()
-                console.log(this.waves.round)
             }, this.waves.delayFinalWaves)
         }
         
@@ -68,6 +76,7 @@ class Game {
         this.enemies.forEach(e => {
             if (e.isEnd()){
                 this.live -= e.damage
+                this.enemiesPassRound++
                 console.log(`You lose a life. You have only ${this.live}`)
             }
         })
@@ -79,9 +88,8 @@ class Game {
             if (e.isDeath()){
                 this.roundEnemisKills++
                 this.enemiesKill++
-                this.coins += e.value
-                console.log(this.roundEnemisKills)
-                console.log(this.coins)
+                this.waves.deaths++
+                this.coins.total += e.value
             }
         })
     }
@@ -99,6 +107,13 @@ class Game {
         } 
     }
 
+    _checkWaves(){
+        if(this.waves.round >= this.waves.numEnemies.length){
+            this.waves.round--
+            this._gameWin()
+        }
+    }
+
     _gameOver(){
         clearInterval(this.intervalId)
 
@@ -109,6 +124,56 @@ class Game {
          this.ctx.canvas.width / 2,
          this.ctx.canvas.height / 2
         );
+    }
+
+    _gameWin(){
+        clearInterval(this.intervalId)
+        this._drawInterface()
+        
+        this.ctx.font = "40px Comic Sans MS";
+        this.ctx.textAlign = "center";
+        this.ctx.fillText(
+            "YOU WIN",
+         this.ctx.canvas.width / 2,
+         this.ctx.canvas.height / 2
+        );
+    }
+
+
+    //initial GUI
+
+    _drawInterface(){
+        //gold
+        this.ctx.font = "20px Comic Sans MS";
+        this.ctx.textAlign = "center";
+        this.ctx.fillText(
+            this.coins.total,
+            860,
+            70
+        )
+        
+        this.ctx.fillText(
+            'Gold',
+            860,
+            30
+        )
+
+        //Wave
+        
+        this.ctx.fillText(
+            'Wave',
+            40,
+            30
+        )
+        
+        this.ctx.fillText(
+            this.waves.round +  1,
+            40,
+            70
+        )
+
+
+
     }
     
 }

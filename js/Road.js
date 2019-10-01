@@ -11,6 +11,7 @@ class Road{
         this.ctx.beginPath()
         this.ctx.fillStyle = "#EDC9AF"
         this.ctx.fillRect(this.x, this.y, this.w, this.h)
+        this.ctx.fillStyle = "black" //change to the old color
         this.ctx.closePath()
     }
 }

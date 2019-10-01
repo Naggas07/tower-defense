@@ -1,7 +1,8 @@
 class Enemies {
-    constructor(ctx,x,y){
+    constructor(ctx,x,y, coordenates){
         this.ctx = ctx 
         this.type = null
+        this.coordenates = coordenates
         this.x = x
         this.y = y + (Math.random() * 70)
         this.w = 20

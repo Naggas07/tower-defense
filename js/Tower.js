@@ -12,7 +12,7 @@ class Tower{
     draw(){
         // Area
         this.ctx.beginPath()
-        this.ctx.styleFill = "black"
+        
         this.ctx.arc(
             this.x,
             this.y,
@@ -25,7 +25,7 @@ class Tower{
 
         // tower image
         this.ctx.beginPath()
-        this.ctx.styleFill = "black"
+        
         this.ctx.fillRect(
             this.x - this.w/2,
             this.y,
