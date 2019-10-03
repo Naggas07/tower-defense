@@ -2,8 +2,8 @@ class Waves {
     constructor(ctx){
         this.ctx = ctx
         this.round = 0
-        this.numEnemies = [2,1]
-        this.routes = [[[0,300],[300,300],[600,450],[800,900]],
+        this.numEnemies = [1,1]
+        this.routes = [[[0,300],[901,300]],
         [[0,200],[300,200],[600,150],[900,450]]
         
         ]

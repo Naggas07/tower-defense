@@ -32,7 +32,6 @@ class Enemies {
     }
 
     calculateRoute(){
-        //calcular la hipotenusa (para saber la relación entre x e y para dar como maxímo 0.3 de V total)
 
         if(this.roadStep >= this.coordenates.length){
             this.v = 0            

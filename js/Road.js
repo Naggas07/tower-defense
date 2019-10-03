@@ -6,7 +6,7 @@ class Road{
         this.w = this.ctx.canvas.width
         this.h = 100
     }
-
+    
     draw(){
         this.ctx.beginPath()
         this.ctx.fillStyle = "#EDC9AF"
