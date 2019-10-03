@@ -1,13 +1,15 @@
 class Enemies {
-    constructor(ctx,x,y, coordenates){
+    constructor(ctx, coordenates){
         this.ctx = ctx 
         this.type = null
         this.coordenates = coordenates
-        this.x = x
-        this.y = y + (Math.random() * 70)
+        this.x = coordenates[0][0]
+        this.y = coordenates[0][1]
+        this.roadStep = 0
         this.w = 20
         this.h = 30
-        this.vx = 0.3
+        this.v = 0.3
+        this.vx = 0
         this.vy = 0
         this.live = 100
         this.value = 5
@@ -22,8 +24,25 @@ class Enemies {
     }
 
     move(){
+        this.calculateRoute()
+        
         this.x += this.vx
         this.y += this.vy
+    }
+
+    calculateRoute(){
+        //calcular la hipotenusa (para saber la relación entre x e y para dar como maxímo 0.3 de V total)
+        if(this.roadStep < this.coordenates.length){
+            const difX = Math.abs(this.x - 300)
+            const difY = Math.abs(this.y - 350)
+
+            const percentajeX = difX / (difY + difX)
+            const percentajeY = difY / (difY + difX)
+
+            this.vx = this.v * percentajeX
+            this.vy = this.v * percentajeY
+        }
+         
     }
 
     isEnd(){

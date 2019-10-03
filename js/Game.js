@@ -59,7 +59,8 @@ class Game {
 
     _addEnemies(){
         if(this.count++ % this.waves.delayTime === 0 && (this.roundEnemisKills + this.enemies.length + this.enemiesPassRound) < this.waves.numEnemies[this.waves.round]){
-                this.enemies.push(new Enemies(this.ctx, this.road.x, this.road.y))
+                //this.enemies.push(new Enemies(this.ctx, this.road.x, this.road.y))
+                this.enemies.push(new Enemies(this.ctx, [[0,300],[300,300]]))
         }
         
         if (this.roundEnemisKills === this.waves.numEnemies[this.waves.round]){

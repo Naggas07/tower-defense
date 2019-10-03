@@ -8,9 +8,9 @@ game.start()
 /* MVP STEPS */
 
 /* 
-1 - Pintar enemigo
-2 - moverlo en el canvas
-3 - El enemigo recibe coordenadas en un array
+1 - Pintar enemigo - ok
+2 - moverlo en el canvas - ok
+3 - El enemigo recibe coordenadas en un array - ok
 4 - sigue estos puntos de coordenadas si hay mas hay que hacer cambios de dirección
 5 - pintar una torre
 6 - pintar hitbox de la torre

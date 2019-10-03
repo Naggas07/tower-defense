@@ -2,7 +2,7 @@ class Waves {
     constructor(ctx){
         this.ctx = ctx
         this.round = 0
-        this.numEnemies = [1, 2, 3, 1, 3]
+        this.numEnemies = [1]
         this.delayTime = 500
         this.delayFinalWaves = 2000
         this.deaths = 0
