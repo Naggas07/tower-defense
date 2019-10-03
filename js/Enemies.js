@@ -8,7 +8,7 @@ class Enemies {
         this.roadStep = 0
         this.w = 20
         this.h = 30
-        this.v = 0.3
+        this.v = 1
         this.vx = 0
         this.vy = 0
         this.live = 100
@@ -28,13 +28,20 @@ class Enemies {
         
         this.x += this.vx
         this.y += this.vy
+        
     }
 
     calculateRoute(){
         //calcular la hipotenusa (para saber la relación entre x e y para dar como maxímo 0.3 de V total)
-        if(this.roadStep < this.coordenates.length){
-            const difX = Math.abs(this.x - 300)
-            const difY = Math.abs(this.y - 350)
+
+        if(this.roadStep >= this.coordenates.length){
+            this.v = 0            
+        }else{
+            if((this.x > this.coordenates[this.roadStep][0] -1 || this.x > this.coordenates[this.roadStep][0] + 1)  && (this.y > this.coordenates[this.roadStep][1] -1 ||this.y > this.coordenates[this.roadStep][1] +1 )){
+                this.roadStep++
+            }
+            const difX = Math.abs(this.x - this.coordenates[this.roadStep][0])
+            const difY = Math.abs(this.y - this.coordenates[this.roadStep][1])
 
             const percentajeX = difX / (difY + difX)
             const percentajeY = difY / (difY + difX)
@@ -46,7 +53,7 @@ class Enemies {
     }
 
     isEnd(){
-        return this.x >= this.ctx.canvas.width
+        return this.x > this.ctx.canvas.width || this.x < 0 || this.y > this.ctx.canvas.height || this.y < 0
     }
 
     isDeath(){

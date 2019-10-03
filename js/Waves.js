@@ -2,7 +2,11 @@ class Waves {
     constructor(ctx){
         this.ctx = ctx
         this.round = 0
-        this.numEnemies = [1]
+        this.numEnemies = [2,1]
+        this.routes = [[[0,300],[300,300],[600,450],[800,900]],
+        [[0,200],[300,200],[600,150],[900,450]]
+        
+        ]
         this.delayTime = 500
         this.delayFinalWaves = 2000
         this.deaths = 0
@@ -11,7 +15,7 @@ class Waves {
 
 
     roundEnd(){
-        return (this.deaths === this.numEnemies[this.round])
+        return this.deaths === this.numEnemies[this.round]
     }
 
     move(){

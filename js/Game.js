@@ -60,10 +60,10 @@ class Game {
     _addEnemies(){
         if(this.count++ % this.waves.delayTime === 0 && (this.roundEnemisKills + this.enemies.length + this.enemiesPassRound) < this.waves.numEnemies[this.waves.round]){
                 //this.enemies.push(new Enemies(this.ctx, this.road.x, this.road.y))
-                this.enemies.push(new Enemies(this.ctx, [[0,300],[300,300]]))
+                this.enemies.push(new Enemies(this.ctx, this.waves.routes[this.waves.round]))
         }
         
-        if (this.roundEnemisKills === this.waves.numEnemies[this.waves.round]){
+        if (this.roundEnemisKills + this.enemiesPassRound  === this.waves.numEnemies[this.waves.round]){
             setTimeout(() => {
                 this.roundEnemisKills = 0
                 this.enemiesPassRound = 0
@@ -78,6 +78,7 @@ class Game {
             if (e.isEnd()){
                 this.live -= e.damage
                 this.enemiesPassRound++
+                this.waves.deaths++
                 console.log(`You lose a life. You have only ${this.live}`)
             }
         })
