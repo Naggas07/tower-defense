@@ -11,15 +11,18 @@ class Game {
         this.roundEnemisKills = 0
         this.coins = new Coins(this.ctx, this.initialGold)
         this.road = new Road(this.ctx, this.routes) 
-        this.towers = [new Tower(this.ctx, 450, 250)]
+        this.towers = []
         this.enemies = []
         this.waves = new Waves(this.ctx, this.routes)
         this.count = 0
         this.enemiesPassRound = 0
         
-
-        // new Enemies(ctx, this.road.x, this.road.y)
+    
     }
+
+    //canvas click
+
+
 
     start(){
         this.intervalId = setInterval(()=>{
@@ -29,7 +32,9 @@ class Game {
             this._enemyEnd()
             this._checklife()
             this._checkWaves()
-            this._checkDamage()
+            if(this.enemies.length > 0){
+                this._checkDamage()
+            }            
             this._clearEnemies()
             this._addEnemies()
 
@@ -44,7 +49,7 @@ class Game {
 
     _draw(){
         this.bg.draw()
-        this.road.draw(this.waves.round)
+        this.road.draw(this.waves.arrayRoad)
         this.towers.forEach(t => t.draw())
         this.enemies.forEach(e => e.draw())
         this.coins.draw()
@@ -56,15 +61,17 @@ class Game {
     }
 
     //towers
+    newTower(x,y){
 
+        this.towers.push(new Tower(this.ctx, x, y))
+    }
     
 
     // enemies
 
     _addEnemies(){
         if(this.count++ % this.waves.delayTime === 0 && (this.roundEnemisKills + this.enemies.length + this.enemiesPassRound) < this.waves.numEnemies[this.waves.round]){
-                //this.enemies.push(new Enemies(this.ctx, this.road.x, this.road.y))
-                this.enemies.push(new Enemies(this.ctx, this.routes[this.waves.round]))
+                this.enemies.push(new Enemies(this.ctx, this.routes[this.waves.arrayRoad]))
         }
         
         if (this.roundEnemisKills + this.enemiesPassRound  === this.waves.numEnemies[this.waves.round]){
@@ -89,15 +96,20 @@ class Game {
     }
 
     _checkDamage(){
-        this.enemies.forEach(e => {
-            e.checkDamage(this.towers[0])
-            if (e.isDeath()){
-                this.roundEnemisKills++
-                this.enemiesKill++
-                this.waves.deaths++
-                this.coins.total += e.value
-            }
+        this.towers.forEach(t => {
+            this.enemies.forEach(e => {
+                e.checkDamage(t)
+                if (e.isDeath()){
+                    this.roundEnemisKills++
+                    this.enemiesKill++
+                    this.waves.deaths++
+                    this.coins.total += e.value
+                }
+            });
         })
+
+
+        
     }
 
     _clearEnemies(){
@@ -114,8 +126,7 @@ class Game {
     }
 
     _checkWaves(){
-        if(this.waves.round >= this.waves.numEnemies.length){
-            this.waves.round--
+        if(this.waves.arrayRoad >= this.routes.length){
             this._gameWin()
         }
     }
@@ -173,7 +184,7 @@ class Game {
         )
         
         this.ctx.fillText(
-            this.waves.round +  1,
+            (this.waves.round + this.waves.arrayRoad * this.waves.numEnemies.length) +  1,
             40,
             70
         )
@@ -181,5 +192,6 @@ class Game {
 
 
     }
+
     
 }

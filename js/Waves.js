@@ -3,6 +3,7 @@ class Waves {
         this.ctx = ctx
         this.round = 0
         this.numEnemies = [1,1]
+        this.arrayRoad = 0
         this.routes = routes
         this.delayTime = 500
         this.delayFinalWaves = 2000
@@ -15,10 +16,19 @@ class Waves {
         return this.deaths === this.numEnemies[this.round]
     }
 
+    newRoad(){
+        return (this.round % this.numEnemies.length) === 0
+    }
+
     move(){
+        
         if(this.roundEnd()){
             this.deaths = 0
             this.round++
+            if(this.newRoad()){
+                this.arrayRoad++
+                this.round = 0
+            }
         }
     }
 

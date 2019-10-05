@@ -51,7 +51,7 @@ class Enemies {
 
             this.vx = this.v * percentajeX
             this.vy = this.v * percentajeY
-            console.log(this.vx, this.vy)
+          
             
 
             
