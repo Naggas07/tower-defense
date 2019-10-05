@@ -3,16 +3,20 @@ class Game {
         this.ctx = ctx
         this.intervalId = null
         this.bg = new Background(this.ctx)
+        this.routes = [[[0,300],[901,300]],
+        [[0,200],[200,200],[200,400],[600,400], [600,200],[950,200]]]
+        this.initialGold = 50
         this.live = 50
         this.enemiesKill = 0
         this.roundEnemisKills = 0
-        this.coins = new Coins(this.ctx)
-        this.road = new Road(this.ctx) 
+        this.coins = new Coins(this.ctx, this.initialGold)
+        this.road = new Road(this.ctx, this.routes) 
         this.towers = [new Tower(this.ctx, 450, 250)]
         this.enemies = []
-        this.waves = new Waves(this.ctx)
+        this.waves = new Waves(this.ctx, this.routes)
         this.count = 0
         this.enemiesPassRound = 0
+        
 
         // new Enemies(ctx, this.road.x, this.road.y)
     }
@@ -40,7 +44,7 @@ class Game {
 
     _draw(){
         this.bg.draw()
-        this.road.draw()
+        this.road.draw(this.waves.round)
         this.towers.forEach(t => t.draw())
         this.enemies.forEach(e => e.draw())
         this.coins.draw()
@@ -60,7 +64,7 @@ class Game {
     _addEnemies(){
         if(this.count++ % this.waves.delayTime === 0 && (this.roundEnemisKills + this.enemies.length + this.enemiesPassRound) < this.waves.numEnemies[this.waves.round]){
                 //this.enemies.push(new Enemies(this.ctx, this.road.x, this.road.y))
-                this.enemies.push(new Enemies(this.ctx, this.waves.routes[this.waves.round]))
+                this.enemies.push(new Enemies(this.ctx, this.routes[this.waves.round]))
         }
         
         if (this.roundEnemisKills + this.enemiesPassRound  === this.waves.numEnemies[this.waves.round]){

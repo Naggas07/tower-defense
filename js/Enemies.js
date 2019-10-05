@@ -8,7 +8,7 @@ class Enemies {
         this.roadStep = 0
         this.w = 20
         this.h = 30
-        this.v = 1
+        this.v = 2
         this.vx = 0
         this.vy = 0
         this.live = 100
@@ -47,6 +47,9 @@ class Enemies {
 
             this.vx = this.v * percentajeX
             this.vy = this.v * percentajeY
+
+           
+            
         }
          
     }
@@ -72,4 +75,6 @@ class Enemies {
             this.reciveDamage(el.damage)
         }
     }
+
+    
 }

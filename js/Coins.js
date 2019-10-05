@@ -1,5 +1,5 @@
 class Coins {
-    constructor(ctx){
+    constructor(ctx,total){
         this.ctx = ctx
         this.x = 10
         this.y = 550
@@ -7,12 +7,12 @@ class Coins {
         this.h = 40
         this.frames = 4
         this.frameIndex = 0
-        this.total = 0
+        this.total = total
 
         this.counter = 0
 
         this.img = new Image()
-        this.img.src = "../images/coins.png"
+        this.img.src = "./images/coins.png"
     }
 
     draw(){
