@@ -14,6 +14,7 @@ class Enemies {
         this.live = 100
         this.value = 5
         this.damage = 1
+        
     }
 
     draw(){
@@ -36,19 +37,27 @@ class Enemies {
         if(this.roadStep >= this.coordenates.length){
             this.v = 0            
         }else{
-            if((this.x > this.coordenates[this.roadStep][0] -1 || this.x > this.coordenates[this.roadStep][0] + 1)  && (this.y > this.coordenates[this.roadStep][1] -1 ||this.y > this.coordenates[this.roadStep][1] +1 )){
+            if(Math.abs(this.coordenates[this.roadStep][0]- this.x) < 1 &&  Math.abs(this.coordenates[this.roadStep][1]- this.y) < 1){
                 this.roadStep++
             }
-            const difX = Math.abs(this.x - this.coordenates[this.roadStep][0])
-            const difY = Math.abs(this.y - this.coordenates[this.roadStep][1])
+            // if((this.x > this.coordenates[this.roadStep][0] -1 || this.x > this.coordenates[this.roadStep][0] + 1)  && (this.y > this.coordenates[this.roadStep][1] -1 ||this.y > this.coordenates[this.roadStep][1] +1 )){
+            //     this.roadStep++
+            // }
+            const difX = this.coordenates[this.roadStep][0] - this.coordenates[this.roadStep - 1][0]
+            const difY = this.coordenates[this.roadStep][1] - this.coordenates[this.roadStep - 1][1]
 
-            const percentajeX = difX / (difY + difX)
-            const percentajeY = difY / (difY + difX)
+            const percentajeX = difX / (Math.abs(difY) + Math.abs(difX))
+            const percentajeY = difY / (Math.abs(difY) + Math.abs(difX))
 
             this.vx = this.v * percentajeX
             this.vy = this.v * percentajeY
+            console.log(this.vx, this.vy)
+            
 
-           
+            
+            
+            
+
             
         }
          

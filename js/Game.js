@@ -4,7 +4,7 @@ class Game {
         this.intervalId = null
         this.bg = new Background(this.ctx)
         this.routes = [[[0,300],[901,300]],
-        [[0,200],[200,200],[200,400],[600,400], [600,200],[950,200]]]
+        [[0,200],[200,200],[200,400],[600,400], [600,200],[905,200]]]
         this.initialGold = 50
         this.live = 50
         this.enemiesKill = 0
