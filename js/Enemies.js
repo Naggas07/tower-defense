@@ -8,7 +8,7 @@ class Enemies {
         this.roadStep = 0
         this.w = 20
         this.h = 30
-        this.v = 2
+        this.v = .5
         this.vx = 0
         this.vy = 0
         this.live = 100

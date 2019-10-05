@@ -2,10 +2,10 @@ class Waves {
     constructor(ctx, routes){
         this.ctx = ctx
         this.round = 0
-        this.numEnemies = [1,1]
+        this.numEnemies = [10,1]
         this.arrayRoad = 0
         this.routes = routes
-        this.delayTime = 500
+        this.delayTime = 100
         this.delayFinalWaves = 2000
         this.deaths = 0
     }

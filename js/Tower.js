@@ -7,6 +7,7 @@ class Tower{
         this.h = 35
         this.area = 90
         this.damage = 0.5
+        this.value = 40
     }
 
     draw(){

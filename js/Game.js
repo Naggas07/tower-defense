@@ -17,12 +17,7 @@ class Game {
         this.count = 0
         this.enemiesPassRound = 0
         
-    
     }
-
-    //canvas click
-
-
 
     start(){
         this.intervalId = setInterval(()=>{
@@ -62,10 +57,19 @@ class Game {
 
     //towers
     newTower(x,y){
-
-        this.towers.push(new Tower(this.ctx, x, y))
+        const towerTry = new Tower(this.ctx, x, y)
+        if(this.coins.total >= towerTry.value) {
+            this.towers.push(towerTry)
+            this.coins.total -= towerTry.value
+        }
     }
     
+    _clearTowers(){
+        this.towers.forEach(t => {
+            this.coins.total += t.value
+        })
+        this.towers = []
+    }
 
     // enemies
 
@@ -79,6 +83,7 @@ class Game {
                 this.roundEnemisKills = 0
                 this.enemiesPassRound = 0
                 this.waves.move()
+                if(this.waves.newRoad()) this._clearTowers()
             }, this.waves.delayFinalWaves)
         }
         
@@ -103,17 +108,18 @@ class Game {
                     this.roundEnemisKills++
                     this.enemiesKill++
                     this.waves.deaths++
+                    this._deleteEnemies()
                     this.coins.total += e.value
                 }
-            });
-        })
-
-
-        
+            })
+        })        
     }
 
     _clearEnemies(){
         this.enemies = this.enemies.filter(e => !e.isEnd())
+    }
+
+    _deleteEnemies(){
         this.enemies = this.enemies.filter(e => !e.isDeath())
     }
 
