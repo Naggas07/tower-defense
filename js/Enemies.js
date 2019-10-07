@@ -14,14 +14,36 @@ class Enemies {
         this.live = 100
         this.value = 5
         this.damage = 1
+
+        this.img = new Image()
+        this.img.src = './images/Enemy_1.png'
+        this.directionEnemy = {
+            'north': true,
+            'east': false,
+            'sourth': false,
+            'west': false
+        }
         
     }
 
     draw(){
-        this.ctx.beginPath()
-        this.ctx.fillStyle = "black"
-        this.ctx.fillRect(this.x ,this.y, this.w, this.h)
-        this.ctx.closePath()
+        // this.ctx.beginPath()
+        // this.ctx.fillStyle = "black"
+        // this.ctx.fillRect(this.x ,this.y, this.w, this.h)
+        // this.ctx.closePath()
+
+        this.ctx.drawImage(
+            this.img,
+            0,
+            2*(this.img.height / 4),
+            this.img.width /3,
+            this.img.height / 4,
+            this.x,
+            this.y,
+            this.w,
+            this.h
+          
+        )
     }
 
     move(){
