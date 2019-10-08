@@ -2,8 +2,12 @@ class Road{
     constructor(ctx, routes){
         this.ctx = ctx
         this.routes = routes
-        this.w = 100
-        this.h = 100
+        this.w = 70
+        this.h = 70
+
+        this.img = new Image()
+        this.img.src = "./images/road.png"
+        this.patern = this.ctx.createPattern(this.img, 'repeat')
     }
     
     draw(round){
@@ -14,19 +18,13 @@ class Road{
             }
         }
 
-        this.ctx.fillStyle = "black" //change to the old color
+        // this.ctx.fillStyle = "black" //change to the old color
 
-        /*
-        this.ctx.beginPath()
-        this.ctx.fillStyle = "#EDC9AF"
-        this.ctx.fillRect(this.x, this.y, this.w, this.h)
-        this.ctx.fillStyle = "black" //change to the old color
-        this.ctx.closePath()*/
     }
 
     drawRectangle(round,index){
         this.ctx.beginPath()
-        this.ctx.fillStyle = '#EDC9AF'
+        this.ctx.fillStyle = this.patern
         this.ctx.moveTo( 
             this.routes[round][index][0] - (this.w /2),
             this.routes[round][index][1] - (this.h/2)
@@ -37,7 +35,7 @@ class Road{
         )
         this.ctx.lineTo(
             this.routes[round][index+1][0] + (this.w /2),
-            this.routes[round][index+1][1] + (this.h/2)
+            this.routes[round][index+1][1] + (this.h/4)
         )
         this.ctx.lineTo(
             this.routes[round][index][0] - (this.w /2),
@@ -45,5 +43,20 @@ class Road{
         )
         this.ctx.fill()
         this.ctx.closePath()
+
+        this.ctx.fillRect(
+            this.routes[round][index][0] - (this.w /2),
+            this.routes[round][index][1] - (this.h/2),
+            (this.routes[round][index+1][0] + (this.w /2)) - (this.routes[round][index][0] - (this.w /2)),
+            (this.routes[round][index+1][1] + (this.h/2)) - (this.routes[round][index][1] - (this.h/2))
+        )
+
+        // this.ctx.drawImage(
+        //     this.img,
+        //     this.routes[round][index][0] - (this.w /2),
+        //     this.routes[round][index][1] - (this.h/2),
+        //     (this.routes[round][index+1][0] + (this.w /2)) - (this.routes[round][index][0] - (this.w /2)),
+        //     (this.routes[round][index+1][1] + (this.h/2)) - (this.routes[round][index][1] - (this.h/2))
+        // )
     }
 }

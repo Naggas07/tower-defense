@@ -14,44 +14,54 @@ class Enemies {
         this.live = 100
         this.value = 5
         this.damage = 1
+        this.animatePosition = 0
+        this.animateOrientation = 0
+        this.counter = 0
 
         this.img = new Image()
         this.img.src = './images/Enemy_1.png'
         this.directionEnemy = {
-            'north': true,
+            'sourth': true,
+            'west': false,
             'east': false,
-            'sourth': false,
-            'west': false
+            'north': false
         }
         
     }
 
     draw(){
-        // this.ctx.beginPath()
-        // this.ctx.fillStyle = "black"
-        // this.ctx.fillRect(this.x ,this.y, this.w, this.h)
-        // this.ctx.closePath()
 
         this.ctx.drawImage(
             this.img,
-            0,
-            2*(this.img.height / 4),
+            this.animatePosition * (this.img.width /3),
+            this.animateOrientation*(this.img.height / 4),
             this.img.width /3,
             this.img.height / 4,
             this.x,
-            this.y,
+            this.y - this.h/2,
             this.w,
-            this.h
-          
+            this.h          
         )
+
+        this.counter++
     }
 
     move(){
+        this._animate()
         this.calculateRoute()
-        
+        this.calculateOrientation()
+        this.moveSide()
         this.x += this.vx
-        this.y += this.vy
-        
+        this.y += this.vy        
+    }
+
+    _animate(){
+        if(this.counter === 15){
+            this.counter = 0
+            if(++this.animatePosition === 3){
+                this.animatePosition = 0
+            }
+        }
     }
 
     calculateRoute(){
@@ -104,6 +114,40 @@ class Enemies {
         const distance = Math.hypot(distX,distY)
         if (distance <= el.area){
             this.reciveDamage(el.damage)
+        }
+    }
+
+    resetOrientation(){
+        this.directionEnemy = {
+            'sourth': false,
+            'west': false,
+            'east': false,
+            'north': false
+        }
+    }
+
+    calculateOrientation(){
+        this.resetOrientation()
+        if (this.vx < 0){
+            this.directionEnemy.west = true
+        } else if(this.vx > 0){
+            this.directionEnemy.east = true
+        } else if(this.vy < 0){
+            this.directionEnemy.north = true
+        } else{
+            this.directionEnemy.sourth = true
+        }
+    }
+
+    moveSide(){
+        if(this.directionEnemy.sourth){
+            this.animateOrientation = 0
+        } else if(this.directionEnemy.west){
+            this.animateOrientation = 1
+        } else if(this.directionEnemy.east) {
+            this.animateOrientation = 2
+        } else {
+            this.animateOrientation = 3
         }
     }
 
