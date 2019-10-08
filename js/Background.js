@@ -7,14 +7,17 @@ class Background {
         this.h = this.ctx.canvas.height
 
         this.img = new Image()
-        this.img.src = "https://www.sharecg.com/images/medium/3024.jpg"
+        this.img.src = "./images/grassBg.png"
     }
 
 
     draw(){
-        this.ctx.beginPath()
-        this.ctx.fillStyle = "#35682D"
-        this.ctx.fillRect(this.x, this.y, this.w, this.h)
-        this.ctx.closePath()
+        this.ctx.drawImage(
+            this.img,
+            this.x,
+            this.y,
+            this.w,
+            this.h
+        )
     }
 }
