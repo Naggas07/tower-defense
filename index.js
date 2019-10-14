@@ -34,4 +34,5 @@ function getCursorPosition(canvas, event) {
 7 - comprobar colision con hitbox de la torre 
 8 - torre dispara enemigo
 9 - eliminar enemigo
+10 - torre posicionada por raton (click)
  */
