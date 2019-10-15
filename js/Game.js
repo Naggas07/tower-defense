@@ -58,7 +58,6 @@ class Game {
 
     //towers
     newTower(x,y,type){
-        console.log(type)
         const area = new Tower(this.ctx,x,y)
         const fire = new Fire(this.ctx,x,y)
         const ice = new Ice(this.ctx,x,y)
@@ -112,7 +111,6 @@ class Game {
                 this.live -= e.damage
                 this.enemiesPassRound++
                 this.waves.deaths++
-                console.log(`You lose a life. You have only ${this.live}`)
             }
         })
     }

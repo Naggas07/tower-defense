@@ -11,7 +11,7 @@ class Boss extends Enemies {
             this.v = .5
             this.vx = 0
             this.vy = 0
-            this.initialLive = 1200
+            this.initialLive = 4000
             this.live = this.initialLive
             this.value = 80
             this.damage = 5

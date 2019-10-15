@@ -1,3 +1,21 @@
+@font-face{
+    font-family: 'One piece';
+    src: url('../fonts/one\ piece\ font.ttf')
+}
+
+*{
+    padding: 0;
+    margin:  0;
+}
+
+body{
+    background: url('../images/bg.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;   
+}
+
 .container {
     display: flex;
     justify-content: center;
@@ -46,11 +64,16 @@
 
 
 h1 {
-    font-size: 2rem;
+    font-size: 4rem;
+    font-family: 'One piece';
     text-align: center;
+    margin-bottom: 10px ;
+    background: rgb(1, 60, 148);
+    color: rgb(245, 240, 167);
 }
 
 #game{
     border: 1px black dashed;
+    background-color: rgba(46, 45, 45, 0.445)
 }
 

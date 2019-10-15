@@ -11,7 +11,7 @@ class Soldier extends Enemies {
             this.v = .5
             this.vx = 0
             this.vy = 0
-            this.initialLive = 100
+            this.initialLive = 600
             this.live = this.initialLive
             this.value = 7
             this.damage = 1
