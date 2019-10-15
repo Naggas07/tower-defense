@@ -2,7 +2,7 @@ class Road{
     constructor(ctx, routes){
         this.ctx = ctx
         this.routes = routes
-        this.w = 100
+        this.w = 70
         this.h = 70
 
         this.img = new Image()

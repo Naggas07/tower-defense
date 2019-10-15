@@ -6,8 +6,8 @@ class Enemies {
         this.x = coordenates[0][0]
         this.y = coordenates[0][1]
         this.roadStep = 0
-        this.w = 20
-        this.h = 30
+        this.w = 30
+        this.h = 40
         this.v = .5
         this.vx = 0
         this.vy = 0
