@@ -8,15 +8,17 @@ class Tower{
         this.area = 90
         this.damage = 0.5
         this.value = 40
+        this.type = 'area'
         this.img = new Image()
         this.img.src = './images/tower_grass.png'
+        this.colorArea = 'darkgrey'
     }
 
     draw(){
 
         // Area
         this.ctx.beginPath()
-        
+        this.ctx.strokeStyle = this.colorArea
         this.ctx.arc(
             this.x,
             this.y,
@@ -26,6 +28,7 @@ class Tower{
         );
         this.ctx.stroke();
         this.ctx.closePath()
+        this.ctx.fillStyle = 'black'
 
         // // tower image
         

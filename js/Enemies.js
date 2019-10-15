@@ -17,6 +17,7 @@ class Enemies {
         this.animatePosition = 0
         this.animateOrientation = 0
         this.counter = 0
+        this.vAfectations = false
 
         this.img = new Image()
         this.img.src = './images/Enemy_1.png'
@@ -108,12 +109,29 @@ class Enemies {
     }
 
     checkDamage(el){
+        this.resetPeriodDamage()
         //center Obj distance
         const distX = Math.abs(el.x - (this.x + (this.w / 2)))
         const distY = Math.abs(el.y - (this.y + (this.h / 2)))
         const distance = Math.hypot(distX,distY)
         if (distance <= el.area){
             this.reciveDamage(el.damage)
+            if(el.type === 'ice'){
+                this.vAfectations = true
+            }
+            this.periodDamage(el.period)
+        }
+    }
+
+    resetPeriodDamage(){
+        this.vAfectations = false
+    }
+
+    periodDamage(reduction){
+        if(this.vAfectations){
+            this.v -= reduction
+        }else{
+            this.v = .5
         }
     }
 

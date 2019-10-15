@@ -166,7 +166,6 @@ class Game {
     // select enemies
 
     newEnemie(ctx, route, wave){
-        console.log(route)
         if(wave.round === (wave.numEnemies.length -1)){
             return new Boss(ctx, route)
         } else if( wave.arrayRoad === 0 && wave.round < (route.length - 1)){

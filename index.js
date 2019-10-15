@@ -2,7 +2,31 @@ const canvas = document.getElementById('game')
 const ctx = canvas.getContext('2d')
 
 const game = new Game(ctx)
-game.start()
+const start = function(){
+  game.start()
+}
+
+let typeTower = 'area'
+
+const area = function(){
+  typeTower = 'area'
+}
+
+const fire = function(){
+  typeTower = 'fire'
+}
+
+const ice = function(){
+  typeTower = 'ice'
+}
+
+
+
+document.querySelector('#play').onclick = start
+document.querySelector('#area').onclick = area
+document.querySelector('#fire').onclick = fire
+document.querySelector('#ice').onclick = ice
+
 
 //events
 
