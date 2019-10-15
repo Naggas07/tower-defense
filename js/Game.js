@@ -76,7 +76,7 @@ class Game {
 
     _addEnemies(){
         if(this.count++ % this.waves.delayTime === 0 && (this.roundEnemisKills + this.enemies.length + this.enemiesPassRound) < this.waves.numEnemies[this.waves.round]){
-                this.enemies.push(new Mage(this.ctx, this.routes[this.waves.arrayRoad]))
+                this.enemies.push(this.newEnemie(this.ctx, this.routes[this.waves.arrayRoad], this.waves))
         }
         
         if (this.roundEnemisKills + this.enemiesPassRound  === this.waves.numEnemies[this.waves.round]){
@@ -165,14 +165,14 @@ class Game {
 
     // select enemies
 
-    newEnemie(ctx, route, roundWave, wave){
-        if(roundWave === (route.length -1)){
+    newEnemie(ctx, route, wave){
+        if(wave.round === (route.length -1)){
             return new Boss(ctx, route)
-        } else if( wave === 0 && roundWave < (route.length - 1)){
+        } else if( wave.arrayRoad === 0 && wave.round < (route.length - 1)){
             return new Enemies(ctx, route)
-        } else if( wave === 1 && roundWave < (route.length - 1)){
+        } else if( wave.arrayRoad === 1 && wave.round < (route.length - 1)){
             return new Soldier(ctx, route)
-        } else if( wave === 2 && roundWave < (route.length - 1)){
+        } else if( wave.arrayRoad === 2 && wave.round < (route.length - 1)){
             return new Mage(ctx, route)
         } 
     }
