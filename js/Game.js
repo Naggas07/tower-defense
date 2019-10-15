@@ -198,34 +198,37 @@ class Game {
         //gold
         this.ctx.font = "20px Comic Sans MS";
         this.ctx.textAlign = "center";
+        this.ctx.fillStyle = "rgb(127, 128, 127)"
+        this.ctx.fillRect(320,0,260,85)
+        this.ctx.fillStyle = "rgb(92, 80, 1)"
         this.ctx.fillText(
             this.coins.total,
-            860,
+            540,
             70
         )
         
         this.ctx.fillText(
             'Gold',
-            860,
+            540,
             30
         )
 
         //Wave
-        
+        this.ctx.fillStyle = "rgb(41, 66, 209)"
         this.ctx.fillText(
             'Wave',
-            40,
+            365,
             30
         )
         
         this.ctx.fillText(
             (this.waves.round + this.waves.arrayRoad * this.waves.numEnemies.length) +  1,
-            40,
+            365,
             70
         )
 
         //Live
-        
+        this.ctx.fillStyle = "rgb(134, 9, 5)"
         this.ctx.fillText(
             'Lives',
             450,
@@ -237,7 +240,9 @@ class Game {
             450,
             70
         )
+        
 
+        this.ctx.fillStyle = "black"
     }
 
     
