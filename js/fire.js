@@ -1,8 +1,6 @@
 class Fire extends Tower{
     constructor(ctx, x, y){
-        this.ctx = ctx
-        this.x = x 
-        this.y = y
+        super(ctx,x,y)
         this.w = 25
         this.h = 35
         this.area = 90

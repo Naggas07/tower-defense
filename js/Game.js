@@ -57,8 +57,24 @@ class Game {
     }
 
     //towers
-    newTower(x,y){
-        const towerTry = new Tower(this.ctx, x, y)
+    newTower(x,y,type){
+        console.log(type)
+        const area = new Tower(this.ctx,x,y)
+        const fire = new Fire(this.ctx,x,y)
+        const ice = new Ice(this.ctx,x,y)
+
+        let towerTry
+
+        if(type === 'area'){
+            towerTry = area
+        } else if(type === 'fire'){
+            towerTry = fire
+        }else{
+            towerTry = ice
+        }
+
+        
+        
         if(this.coins.total >= towerTry.value) {
             this.towers.push(towerTry)
             this.coins.total -= towerTry.value
@@ -210,7 +226,19 @@ class Game {
             70
         )
 
-
+        //Live
+        
+        this.ctx.fillText(
+            'Lives',
+            450,
+            30
+        )
+        
+        this.ctx.fillText(
+            this.live,
+            450,
+            70
+        )
 
     }
 

@@ -11,7 +11,8 @@ class Enemies {
         this.v = .5
         this.vx = 0
         this.vy = 0
-        this.live = 100
+        this.initialLive = 100
+        this.live = this.initialLive
         this.value = 5
         this.damage = 1
         this.animatePosition = 0
@@ -31,6 +32,19 @@ class Enemies {
     }
 
     draw(){
+        this.ctx.fillStyle = 'green'
+        this.ctx.fillRect(this.x,
+            this.y-30,
+            this.w,
+            5)
+
+        this.ctx.fillStyle = 'red'
+        this.ctx.fillRect(this.x + this.w,
+                this.y-30,
+                (this.w - ((this.w/this.initialLive)* this.live))*-1,
+                5)
+
+        this.ctx.fillStyle = 'black'
 
         this.ctx.drawImage(
             this.img,
@@ -53,7 +67,10 @@ class Enemies {
         this.calculateOrientation()
         this.moveSide()
         this.x += this.vx
-        this.y += this.vy        
+        this.y += this.vy
+        this.resetPeriodDamage()
+        
+
     }
 
     _animate(){
@@ -109,7 +126,7 @@ class Enemies {
     }
 
     checkDamage(el){
-        this.resetPeriodDamage()
+        
         //center Obj distance
         const distX = Math.abs(el.x - (this.x + (this.w / 2)))
         const distY = Math.abs(el.y - (this.y + (this.h / 2)))
@@ -119,8 +136,9 @@ class Enemies {
             if(el.type === 'ice'){
                 this.vAfectations = true
             }
-            this.periodDamage(el.period)
+            
         }
+        this.periodDamage()
     }
 
     resetPeriodDamage(){
@@ -129,7 +147,7 @@ class Enemies {
 
     periodDamage(reduction){
         if(this.vAfectations){
-            this.v -= reduction
+            this.v = .2
         }else{
             this.v = .5
         }

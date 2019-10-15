@@ -11,7 +11,8 @@ class Mage extends Enemies {
             this.v = .5
             this.vx = 0
             this.vy = 0
-            this.live = 240
+            this.initialLive = 240
+            this.live = this.initialLive
             this.value = 10
             this.damage = 2
             this.animatePosition = 0

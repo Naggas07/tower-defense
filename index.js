@@ -32,7 +32,7 @@ document.querySelector('#ice').onclick = ice
 
 canvas.addEventListener("mousedown", e => {
     let position = getCursorPosition(canvas, e)
-    game.newTower(position.x, position.y)
+    game.newTower(position.x, position.y,position.type)
 })
 
 function getCursorPosition(canvas, event) {
@@ -42,7 +42,8 @@ function getCursorPosition(canvas, event) {
    
     return {
       "x": x,
-      "y": y
+      "y": y,
+      "type": typeTower
     }
   }
 
